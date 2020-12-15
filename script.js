@@ -14,14 +14,20 @@ function setup() {
   background(255);
 }
 function keyPressed() {
-  if (key == "t") {
-    let options = {
-      epochs: 200
-    };
-    model.normalizeData();
-    model.train(options, whileTraining, finishTraining);
-  } else {
-    targetLabel = key.toUpperCase();
+  switch (key) {
+    case "t":
+      let options = {
+        epochs: 200
+      };
+      model.normalizeData();
+      model.train(options, whileTraining, finishTraining);
+      break;
+    case "+":
+      state = "collection";
+      break;
+    default:
+      targetLabel = key.toUpperCase();
+      break;
   }
 }
 function mousePressed() {
@@ -56,14 +62,13 @@ const finishTraining = () => {
 };
 //----------->prediction
 function gotResults(error, results) {
-  
   if (error) {
     console.log(error);
     return;
   }
 
   fill(0, 0, 255);
-  stroke(0)
+  stroke(0);
   ellipse(mouseX, mouseY, 24, 24);
   fill(0);
   noStroke();
